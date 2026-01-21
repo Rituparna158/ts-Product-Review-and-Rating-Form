@@ -1,5 +1,6 @@
 //import {getState} from "../app.state";
 import Form from "./Form.js";
+import { Table } from "./Table.js";
 
 export function renderApp(){
     const root=document.getElementById("app");
@@ -10,6 +11,7 @@ export function renderApp(){
     layout.className = 'app';
 
     layout.appendChild(Form.render());
+    layout.append(Table())
 
     root.appendChild(layout);
 }

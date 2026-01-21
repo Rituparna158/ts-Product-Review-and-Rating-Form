@@ -11,6 +11,13 @@ const Form={
     const form=element("form") as HTMLFormElement;
     const formState=appState.state.form;
     const errors:{[key:string]:string}={};
+    function errorText(message:string):HTMLElement | null{
+        if(message==="") return null;
+        const div=element("div");
+        div.className="error";
+        div.textContent=message;
+        return div;
+    }
 
     const productDetailsDiv=element("div");
     const name=element("input") as HTMLInputElement;
@@ -33,6 +40,8 @@ const Form={
 
     const date=element("input") as HTMLInputElement;
     date.type='date';
+    const today=new Date().toISOString().split("T")[0];
+    date.max=today;
     date.value=formState.date;
     date.addEventListener("change",()=>{
         appState.setField("date",date.value);
@@ -41,6 +50,8 @@ const Form={
 
     productDetailsDiv.appendChild(document.createTextNode("Product Name:"))
     productDetailsDiv.appendChild(name);
+    const nameErr=errorText(errors.name);
+    if(nameErr) productDetailsDiv.appendChild(nameErr);
     productDetailsDiv.appendChild(document.createTextNode("Product SKU:"))
     productDetailsDiv.appendChild(sku);
     productDetailsDiv.appendChild(document.createTextNode("Purchase Date:"))
@@ -103,7 +114,7 @@ const Form={
         tagOptions.forEach(tag=>{
         const checkbox=element("input") as HTMLInputElement;
         checkbox.type="checkbox";
-        checkbox.checked=formState.tags.includes(tag);
+        checkbox.checked=appState.state.form.tags.includes(tag);
 
         checkbox.addEventListener("change",()=>{
             appState.toogleTag(tag,checkbox.checked);
@@ -168,7 +179,7 @@ const Form={
 
     const submit=element("button") as HTMLButtonElement;
     submit.type="submit";
-    submit.textContent="Submit"
+    submit.textContent=appState.state.editIndex==-1?"Submit":"Update";
 
     form.appendChild(productDetailsDiv);
     form.appendChild(ratingsDiv);
@@ -205,9 +216,10 @@ const Form={
             }
         }
         if(hasError){
-            renderApp();
+           
             return;
         }
+        appState.saveRecord();
         storage.save();
         appState.resetForm();
         renderApp();

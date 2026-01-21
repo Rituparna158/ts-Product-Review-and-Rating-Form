@@ -9,7 +9,9 @@
     "preview": "vite preview",
     "lint": "eslint --ext .js,.ts .",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test":"vitest",
+    "test:ci":"vitest run"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",

@@ -1,5 +1,19 @@
-const Types:{
-    FormData:{
+type Types={
+    Ratings:{
+            overall:number;
+            quality:number;
+            value:number;
+            delivery:number;
+            service:number;
+        };
+        HoverRatings:{
+            overall:number;
+            quality:number;
+            value:number;
+            delivery:number;
+            service:number;
+        } ;
+        FormData:{
         name:string;
         sku:string;
         date:string;
@@ -7,25 +21,36 @@ const Types:{
         title:string;
         detail:string;
         tags:string[];
+        
+        recommend:string;
+        wouldBuyAgain:boolean;
+        makeReviewPublic:boolean;
+        agreeToTerms:boolean;
+
         ratings:{
             overall:number;
             quality:number;
             value:number;
             delivery:number;
             service:number;
+
         };
-        recommend:string;
-        wouldBuyAgain:boolean;
-        makeReviewPublic:boolean;
-        agreeToTerms:boolean;
         hoverRatings:{
             overall:number;
             quality:number;
             value:number;
             delivery:number;
             service:number;
-        }      
+        };
+
+        
     };
+
+
+
+};
+/*const Types:{
+    
 }={
     FormData:{
         name:"",
@@ -56,5 +81,5 @@ const Types:{
 
 
     }
-};
-export default Types;
+};*/
+export type {Types};

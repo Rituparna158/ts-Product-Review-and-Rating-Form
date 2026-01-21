@@ -1,18 +1,19 @@
 import appState from "./app.state.js";
 const storage={
-    save(){
-        const all=localStorage.getItem("review-form");
-        let records=[];
-        if(all){
-            const parsed=JSON.parse(all);
-            if(Array.isArray(parsed)){
-                records=parsed;
+    save():void{
+        localStorage.setItem("review-form" , JSON.stringify(appState.state.records));
+        
+        },
+        load():void{
+            const stored=localStorage.getItem("review-form");
+            if(stored){
+                const parsed=JSON.parse(stored);
+
+                if(Array.isArray(parsed)){
+                    appState.state.records=parsed;
+                }
             }
         }
-        const copy=JSON.parse(JSON.stringify(appState.state.form));
-        records.push(copy);
-        localStorage.setItem("review-form",JSON.stringify(records));
-    }
-}
+    };
 
 export default storage;

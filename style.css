@@ -1,0 +1,26 @@
+*{
+    box-sizing: border-box;
+    font-family: "Segoe UI",Roboto , Arial,sans-serif;
+}
+body{
+    
+    margin: 0;
+    background: linear-gradient(135deg,#eef2f7,#dfe7f1);
+}
+.app{
+    display: flex;
+    gap:24px;
+    align-items: flex-start;
+    max-width: 1400px;
+    margin: auto;
+    padding: 24px;
+    
+}
+.table-section{
+    flex-direction: column;
+    flex: 2;
+    display: flex;
+    gap:12px; 
+    width: 50px; 
+  
+}
