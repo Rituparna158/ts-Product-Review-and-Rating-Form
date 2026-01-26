@@ -2,6 +2,8 @@ import { element } from "../utils/dom.js";
 import appState from "../app.state.js";
 import { renderApp } from "./App.js";
 import storage from "../app.storage.js";
+import Modal from "./Modal.js";
+//import Modal from "./Modal.js";
 
 function createCell(
     row:HTMLTableRowElement,
@@ -11,10 +13,23 @@ function createCell(
     td.textContent=text;
     row.appendChild(td);
 }
+//deleteBtn
 export function Table():HTMLElement{
     const tableDiv=element("div");
     tableDiv.className="table-section";
+
+    const heading=element("di");
+    heading.className="table-heading";
+    heading.textContent="Submitted Reviews";
+    tableDiv.appendChild(heading);
+
+    const container=element("div");
+    container.className="table-container";
+    tableDiv.appendChild(container);
+
     const table=element("table") as HTMLTableElement;
+    table.id="recordsTable";
+    container.appendChild(table);
 
     const thead=element("thead");
     const headerRow=element("tr");
@@ -77,9 +92,15 @@ export function Table():HTMLElement{
         const deleteBtn=element("button") as HTMLButtonElement;
         deleteBtn.textContent="Deletet";
         deleteBtn.addEventListener("click",()=>{
-            appState.deleteRecord(index);
-            storage.save();
-            renderApp();
+            Modal.show("Are you sure you want to delete this record?",()=>{
+                appState.deleteRecord(index);
+                storage.save();
+                Modal.show("Record Deleted successfully")
+                renderApp();
+
+            })
+            
+           
         });
         actionId.appendChild(editBtn);
         actionId.appendChild(deleteBtn);
@@ -88,6 +109,7 @@ export function Table():HTMLElement{
 
     })
     table.appendChild(tbody)
-    tableDiv.appendChild(table);
+    container.appendChild(table)
+    tableDiv.appendChild(container);
     return tableDiv;
 }

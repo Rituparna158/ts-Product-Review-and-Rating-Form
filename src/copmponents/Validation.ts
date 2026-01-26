@@ -3,11 +3,7 @@ const validation={
         return value.trim()===""?"This field is required":"";
     },
     length(value:string,min:number,max:number):string{
-        if(value.length<min|| value.length>max){
-            return `Must be between ${min} and ${max} characters`;
-
-        }
-        return "";
+        return value.length<min|| value.length>max? `Must be between ${min} and ${max} characters`:"";  
     },
     rating(value:number):string{
         return value===0?"Rating is required":"";
