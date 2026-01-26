@@ -1,4 +1,5 @@
 import type {Types} from "./types.js";
+import logic from "./app.logic.js";
 type FormField=
 | "name"
 | "sku"
@@ -44,13 +45,16 @@ const emptyForm:Types["FormData"]={
             delivery:0,
             service:0
         },  
+        
 
 
     }
 const state={
     form:{...emptyForm},
+    errors:{} as Record<string,string>,
     records:[] as Types["FormData"][],
-    editIndex:-1
+    editIndex:-1,
+    theme:"light" as "light" | "dark"
     
 };
 
@@ -65,6 +69,9 @@ const appState={
     setRating(key:RatingField,value:number){
         state.form.ratings[key]=value
     },
+    setTheme(theme:"light"|"dark"):void{
+        state.theme=theme;
+    },
     toogleTag(tag:string,checked:boolean){
         if(checked){
             state.form.tags.push(tag);
@@ -78,6 +85,15 @@ const appState={
     clearHover(key:RatingField){
         state.form.hoverRatings[key]=0;
     },
+    setErrors(key:string,message:string):void{
+        this.state.errors[key]=message;
+    },
+    clearErrors(key:string):void{
+        delete this.state.errors[key];
+    },
+    clearAllErrors():void{
+        this.state.errors={};
+    },
     saveRecord():void{
         const recordCopy:Types["FormData"]={
             ...state.form,
@@ -86,14 +102,19 @@ const appState={
             hoverRatings:{...state.form.hoverRatings}
         };
         if(state.editIndex===-1){
-            state.records.push(recordCopy);
+            state.records=logic.addRecord(state.records,recordCopy);
         }else{
-            state.records[state.editIndex]=recordCopy;
+            state.records=logic.updateRecord(
+                state.records,
+                state.editIndex,
+                recordCopy
+            );
             state.editIndex=-1;
         }
     },
     editRecord(index:number):void{
         const rec=state.records[index];
+        if(!rec) return;
         state.editIndex=index;
 
         state.form={
@@ -104,7 +125,7 @@ const appState={
         }
     },
     deleteRecord(index:number):void{
-        state.records.splice(index,1)
+        state.records=logic.deleteRecord(state.records,index)
     },
     resetForm():void{
         state.form.name="";
@@ -131,7 +152,8 @@ const appState={
             value:0,
             delivery:0,
             service:0
-}
+        };
+        state.errors={};
 state.editIndex=-1;
     }
 };
