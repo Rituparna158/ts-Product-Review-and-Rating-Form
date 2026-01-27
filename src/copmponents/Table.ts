@@ -99,8 +99,7 @@ export function Table():HTMLElement{
                 renderApp();
 
             })
-            
-           
+ 
         });
         actionId.appendChild(editBtn);
         actionId.appendChild(deleteBtn);

@@ -1,5 +1,5 @@
 //import {getState} from "../app.state";
-import Form from "./Form.js";
+import { Form } from "./Form.js";
 import { Table } from "./Table.js";
 import appState from "../app.state.js";
 import { element } from "../utils/dom.js";
@@ -21,12 +21,10 @@ export function renderApp(){
     const toggleWrapper=element("div");
     toggleWrapper.appendChild(ThemeTogggle.render());
 
+    const form=new Form();
     formWrapper.appendChild(toggleWrapper);
-    formWrapper.appendChild(Form.render());
+    formWrapper.appendChild(form.render());
 
-    
-
- 
     layout.appendChild(formWrapper);
     layout.append(Table())
 
