@@ -1,19 +1,16 @@
-//import { useState } from 'react'
-//import reactLogo from './assets/react.svg'
-//import viteLogo from '/vite.svg'
+import useTheme from './hooks/useTheme';
 import './App.css'
-import Form from './components/form/Form';
-//import { ContactForm } from './components/Form';
-//import { MyButton } from './components/Form'
+import ReviewPage from './pages/ReviewPage';
+
 
 function App() {
+  const {theme,toggleTheme}=useTheme();
   return (
-    <>
-    <Form/>
-      
-    </>
+    <div className={`app ${theme}`}>
+      <button onClick={toggleTheme}>Toggle Theme</button>
+      <ReviewPage/>
+    </div>  
   );
-
 }
 
-export default App
+export default App;

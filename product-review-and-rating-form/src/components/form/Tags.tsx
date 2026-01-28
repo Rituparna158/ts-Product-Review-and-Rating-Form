@@ -13,6 +13,7 @@ const tags=[
     "Not Worth Price",
     "Damaged on Arrival",
 ];
+
 const TagSection=({formData,setFormData}:Props)=>{
     return(
         <fieldset>

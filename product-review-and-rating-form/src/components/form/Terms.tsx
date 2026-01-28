@@ -1,9 +1,25 @@
 import { FormTypes } from "../../types/form.types";
+import validationService from "../../services/validation.service";
 interface Props{
     formData: typeof FormTypes.data;
     setFormData:(data:typeof FormTypes.data)=>void;
+    errors:Record<string,string>;
+    validateField:(name:string,error:string)=>void;
+    clearError:(name:string)=>void;
 }
-const  Terms=({formData,setFormData}:Props)=>{
+const  Terms=({
+    formData,
+    setFormData,
+    errors,
+    validateField,
+    clearError,}:Props)=>{
+        const handleAgreeChange=(checked:boolean)=>{
+            setFormData({...formData,agreeToTerms:checked});
+
+            const error=validationService.checkbox(checked);
+            if(error) validateField("agreeToTerms",error);
+            else clearError("agreeToTerms");
+        };
     return(
         <fieldset>
             <legend>Terms & Conditions</legend>
@@ -35,14 +51,11 @@ const  Terms=({formData,setFormData}:Props)=>{
                 <input
                 type="checkbox"
                 checked={formData.agreeToTerms}
-                onChange={(e)=>
-                    setFormData({
-                        ...formData, agreeToTerms:e.target.checked,
-                    })
-                }
+                onChange={(e)=>handleAgreeChange(e.target.checked)}
                  />{" "}Agree-to-Terms
+                 <span className="required">*</span>
             </label>
-            <div className="error"></div>
+            <div className="error">{errors.agreeToTerms}</div>
 
         </fieldset>
 

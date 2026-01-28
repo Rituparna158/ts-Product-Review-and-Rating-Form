@@ -2,7 +2,9 @@ import { FormTypes } from "../../types/form.types";
 interface Props{
     formData: typeof FormTypes.data;
     setFormData:(data:typeof FormTypes.data)=> void;
-    //errors:Record<string,string>;
+    errors:Record<string,string>;
+    clearError:(name:string)=>void;
+ 
 }
 const recommendTypes=[
     "Definitely Yes",
@@ -12,11 +14,23 @@ const recommendTypes=[
     "Definitely No",
 ];
 
-const RecommendationSection=({formData,setFormData}:Props)=>{
+const RecommendationSection=({
+    formData,
+    setFormData,
+    errors,
+    //validateField,
+    clearError,
+    }:Props)=>{
+    const handleRecommendChange=(value:string)=>{
+        setFormData({...formData,recommend:value});
+        clearError("recommend")
+    }
     return (
         <fieldset>
         <legend>Product Recommendation</legend>
-        <div>Recommend this Product:</div>
+        <div>Recommend this Product
+            <span className="required">*</span>
+        </div>
         <br/>
 
         {recommendTypes.map((type)=>(
@@ -26,13 +40,13 @@ const RecommendationSection=({formData,setFormData}:Props)=>{
                 name="recommend"
                 value={type}
                 checked={formData.recommend===type}
-                onChange={()=>
-                    setFormData({...formData,recommend:type})
-                }
+                onChange={()=>handleRecommendChange(type)}
                 />
-                {type}<br />
+                {type}
+                <br />
             </label>
         ))}
+        <div className="error">{errors.recommend}</div>
     </fieldset>
 
     )  

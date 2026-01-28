@@ -8,8 +8,17 @@ interface  Props{
     ratingKey:RatingKey;
     formData:typeof FormTypes.data;
     setFormData:(data:typeof FormTypes.data)=>void;
+    clearError:(name:string)=>void;
+    required?:boolean
 }
-const StarRating=({label,ratingKey,formData,setFormData}:Props)=>{
+const StarRating=({
+    label,
+    ratingKey,
+    formData,
+    setFormData,
+    clearError,
+    required,
+    }:Props)=>{
     const savedValue=formData.ratings[ratingKey];
 
     const [hoverValue,setHoverValue]=useState(0);
@@ -23,10 +32,14 @@ const StarRating=({label,ratingKey,formData,setFormData}:Props)=>{
                 [ratingKey]:value,
             },
         });
+        clearError(ratingKey)
     };
     return (
         <div className="product-rating-1-1">
-            <label>{label}</label>
+            <label>
+                {label}
+                {required && <span className="required">*</span>}
+            </label>
             <div className="star-rating">
             {[1,2,3,4,5].map((value)=>(
                 <span

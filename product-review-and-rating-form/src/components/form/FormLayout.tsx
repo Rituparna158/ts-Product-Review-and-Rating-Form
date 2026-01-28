@@ -1,8 +1,9 @@
 interface Props{
     children:React.ReactNode;
     onSubmit:(e:React.FormEvent)=>void;
+    isEdit:boolean;
 }
-const FormLayout=({children,onSubmit}:Props)=>{
+const FormLayout=({children,onSubmit,isEdit}:Props)=>{
     return(
         <div className="main-container">
             <div className="heading">
@@ -12,7 +13,8 @@ const FormLayout=({children,onSubmit}:Props)=>{
             <div className="form-wrapper">
             <form onSubmit={onSubmit}>
                 {children}
-                <input type="submit" className="submit-btn" value="Submit" />
+                <input type="submit" className="submit-btn" value={ isEdit ? "Submit":"Update"} 
+                />
             </form>
         </div>
     </div>
