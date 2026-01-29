@@ -11,7 +11,8 @@ import Ratings from './Ratings';
 import validationService from '../../services/validation.service';
 import useFormValidation from '../../hooks/useFormValidation';
 import Modal from '../common/Modal';
-import '../../styles/style.css';
+import '../../styles/form.style.css';
+import '../../styles/table.style.css'
 
 type Props = {
   formData: typeof FormTypes.data;

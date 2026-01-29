@@ -52,6 +52,7 @@ const ReviewDetails = ({
         placeholder="Enter Review Title"
       />
       <div className="error">{errors.title}</div>
+      <br/>
       <label>
         Detailed Review
         <span className="required">*</span>
@@ -64,7 +65,7 @@ const ReviewDetails = ({
       />
       <div className="error">{errors.detail}</div>
       <br />
-      <br />
+     
 
       <div>Review Type:</div>
       {['Verified-Purchase', 'General-Review'].map((type) => (

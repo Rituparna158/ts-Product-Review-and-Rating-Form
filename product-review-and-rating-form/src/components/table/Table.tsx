@@ -1,5 +1,5 @@
 import { FormTypes } from '../../types/form.types';
-import '../../styles/style.css';
+//import '../../styles/table.style.css';
 interface Props {
   records: (typeof FormTypes.data)[];
   onEdit: (index: number) => void;
@@ -8,7 +8,7 @@ interface Props {
 const Table = ({ records, onEdit, onDelete }: Props) => {
   return (
     <div className="table-section">
-      <div className="table-heading">Submitted Reviews</div>
+      <div className="table-heading"><h2>Submitted Reviews</h2></div>
       <div className="table-container">
         <table id="recordsTable">
           <thead>

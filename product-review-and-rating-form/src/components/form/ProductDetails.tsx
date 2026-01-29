@@ -1,5 +1,5 @@
 import { FormTypes } from '../../types/form.types';
-import '../../styles/style.css';
+//import '../../styles/style.css';
 import validationService from '../../services/validation.service';
 //import useFormValidation from "../../hooks/useFormValidation";
 interface Props {
@@ -67,6 +67,7 @@ const ProductDetails = ({
         placeholder="Enter Product Name"
       />
       <div className="error">{errors.name}</div>
+      <br />
 
       <label>
         Product SKU
@@ -80,6 +81,7 @@ const ProductDetails = ({
         placeholder="Enter Product SKU"
       />
       <div className="error">{errors.sku}</div>
+      <br/>
 
       <label>
         Purchase Date

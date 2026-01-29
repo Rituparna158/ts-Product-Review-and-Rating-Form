@@ -4,6 +4,8 @@
 }
 body {
   margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 .page-layout {
   display: flex;
@@ -12,6 +14,7 @@ body {
   max-width: 1400px;
   margin: auto;
   padding: 24px;
+  width: 100vw;
 }
 .heading {
   text-align: center;
@@ -39,7 +42,6 @@ body {
   background: #fff;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
 }
-
 label {
   font-weight: 500;
   margin-top: 14px;
@@ -63,7 +65,6 @@ textarea:focus {
   border-color: #007bff;
   outline: none;
 }
-
 .fa-star {
   font-size: 22px;
   cursor: pointer;
@@ -136,73 +137,7 @@ input.submit-btn:hover {
   color: red;
   margin-left: 4px;
 }
-.table-section {
-  flex-direction: column;
-  flex: 2;
-  display: flex;
-  gap: 12px;
-  width: 50%;
-}
-.table-container {
-  overflow-x: auto;
-  border-radius: 6px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-  background: #fff;
-}
-.table-heading {
-  margin-top: 24px;
-  margin-bottom: 10px;
-  text-align: center;
-  padding: 22px;
-  border-radius: 6px;
-  font-weight: 600;
-  border: 1px solid #ddd;
-  background: #fff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-}
-#recordsTable {
-  min-width: 1500px;
-  width: 100%;
-  border-collapse: collapse;
-}
 
-#recordsTable th,
-#recordsTable td {
-  padding: 12px 16px;
-  border: 1px solid #ddd;
-  text-align: center;
-  white-space: nowrap;
-}
-#recordsTable th {
-  background: #f3f4f6;
-  font-weight: 600;
-}
-#recordsTable tbody tr:nth-child(even) {
-  background-color: #fafafa;
-}
-#recordsTable td:last-child {
-  display: flex;
-  gap: 6px;
-}
-#recordsTable tbody tr:hover {
-  background: #eef6ff;
-}
-
-#recordsTable button {
-  padding: 6px 10px;
-  font-size: 12px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-}
-#recordsTable button:first-child {
-  background: #007bff;
-  color: #fff;
-}
-#recordsTable button:last-child {
-  background-color: #dc35dc;
-  color: #fff;
-}
 .btn-wrap {
   display: flex;
   justify-content: center;
@@ -238,17 +173,6 @@ input.submit-btn:hover {
   color: #fff;
   cursor: pointer;
 }
-dialog {
-  padding: 24px;
-  border-radius: 8px;
-  border: none;
-  width: 320px;
-  text-align: center;
-}
-dialog::backdrop {
-  background: rgba(0, 0, 0, 0.5);
-}
-
 .app.dark {
   background: linear-gradient(135deg, #1e1e1e, #121212);
 }
@@ -265,7 +189,10 @@ dialog::backdrop {
     flex-direction: column;
     align-items: stretch;
   }
-  .form-wrapper,
+  .form-wrapper{
+     width: 100%;
+    max-width: 100%;
+  }
   .table-section {
     width: 100%;
     max-width: 100%;
