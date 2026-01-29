@@ -1,171 +1,167 @@
 //import { useState } from "react";
-import { useState, type FormEvent } from "react";
-import { FormTypes } from "../../types/form.types";
-import FormLayout from "./FormLayout";
-import ProductDetails from "./ProductDetails";
-import ReviewDetails from "./ReviewDetails";
-import Recommend from "./Recommend";
-import Tags from "./Tags";
-import Terms from "./Terms";
-import Ratings from "./Ratings";
-import validationService from "../../services/validation.service";
-import useFormValidation from "../../hooks/useFormValidation";
-import Modal from "../common/Modal";
-import "../../styles/style.css";
+import { useState, type FormEvent } from 'react';
+import { FormTypes } from '../../types/form.types';
+import FormLayout from './FormLayout';
+import ProductDetails from './ProductDetails';
+import ReviewDetails from './ReviewDetails';
+import Recommend from './Recommend';
+import Tags from './Tags';
+import Terms from './Terms';
+import Ratings from './Ratings';
+import validationService from '../../services/validation.service';
+import useFormValidation from '../../hooks/useFormValidation';
+import Modal from '../common/Modal';
+import '../../styles/style.css';
 
-type Props={
-    formData:typeof FormTypes.data;
-    setFormData:(data:typeof FormTypes.data)=>void;
-    records:(typeof FormTypes.data)[];
-    setRecords:(data:(typeof FormTypes.data)[])=>void;
-    editIndex:number|null;
-    setEditIndex:(index:number|null)=>void;
-    initialFormData:typeof FormTypes.data;
+type Props = {
+  formData: typeof FormTypes.data;
+  setFormData: (data: typeof FormTypes.data) => void;
+  records: (typeof FormTypes.data)[];
+  setRecords: (data: (typeof FormTypes.data)[]) => void;
+  editIndex: number | null;
+  setEditIndex: (index: number | null) => void;
+  initialFormData: typeof FormTypes.data;
 };
 
-const Form=({
-    formData,
-    setFormData,
-    records,
-    setRecords,
-    editIndex,
-    setEditIndex,
-    initialFormData,
-    }: Props) => {
-        const[modalMessage,setModalMessage]=useState("");
-        const [showModal,setShowModal]=useState(false);
-        const {errors,validateField,clearError}=useFormValidation();
-        const scrollToFirstError=()=>{
-            setTimeout(() => {
-                const errorElement=document.querySelector(".error:not(:empty)");
-                if(errorElement){
-                errorElement.scrollIntoView({
-                    behavior:"smooth",
-                    block:"center",
-                })
-            }  
-            }, 0); 
-        },
-        scrollToTop=()=>{
-            window.scrollTo({
-                top:0,
-                behavior:"smooth"});
-        };
-       
-        const handleSubmit=(e: FormEvent)=>{
-        e.preventDefault();
-        
-        const submitErrors=validationService.validatateForm(formData);
+const Form = ({
+  formData,
+  setFormData,
+  records,
+  setRecords,
+  editIndex,
+  setEditIndex,
+  initialFormData,
+}: Props) => {
+  const [modalMessage, setModalMessage] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const { errors, validateField, clearError } = useFormValidation();
+  const scrollToFirstError = () => {
+      setTimeout(() => {
+        const errorElement = document.querySelector('.error:not(:empty)');
+        if (errorElement) {
+          errorElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+          });
+        }
+      }, 0);
+    },
+    scrollToTop = () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    };
 
-        let hasError=false;
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
 
-        if(submitErrors.name){
-            validateField("name",submitErrors.name);
-            hasError=true;    
-        }
-        if(submitErrors.sku){
-            validateField("sku",submitErrors.sku);
-            hasError=true;   
-        }
-        if(submitErrors.date){
-            validateField("date",submitErrors.date);
-            hasError=true;
-            
-        }
-        if(submitErrors.overall){
-            validateField("overall",submitErrors.overall);
-            hasError=true;   
-        }
-        if(submitErrors.quality){
-            validateField("quality",submitErrors.quality);
-            hasError=true;   
-        }
-        if(submitErrors.value){
-            validateField("value",submitErrors.value);
-            hasError=true;   
-        }
-          if(submitErrors.title){
-            validateField("title",submitErrors.title);
-            hasError=true;    
-        }
-          if(submitErrors.detail){
-            validateField("detail",submitErrors.detail);
-            hasError=true;   
-        }
-         if(submitErrors.recommend){
-            validateField("recommend",submitErrors.recommend);
-            hasError=true;   
-        }
-        if(submitErrors.agreeToTerms){
-            validateField("agreeToTerms",submitErrors.agreeToTerms);
-            hasError=true;   
-        }
-        if(hasError){
-            scrollToFirstError();
-            return;
-        } 
+    const submitErrors = validationService.validatateForm(formData);
 
-        if(editIndex===null){
-            setRecords([...records,formData]);
-            setModalMessage("Form submitted successfully");
+    let hasError = false;
 
-        }else{
-            const updated=[...records];
-            updated[editIndex]=formData;
-            setRecords(updated);
-            setEditIndex(null);
-            setModalMessage("Form updated successfully");
-        }
-        setShowModal(true);
-        setFormData(initialFormData);
-        scrollToTop();
+    if (submitErrors.name) {
+      validateField('name', submitErrors.name);
+      hasError = true;
+    }
+    if (submitErrors.sku) {
+      validateField('sku', submitErrors.sku);
+      hasError = true;
+    }
+    if (submitErrors.date) {
+      validateField('date', submitErrors.date);
+      hasError = true;
+    }
+    if (submitErrors.overall) {
+      validateField('overall', submitErrors.overall);
+      hasError = true;
+    }
+    if (submitErrors.quality) {
+      validateField('quality', submitErrors.quality);
+      hasError = true;
+    }
+    if (submitErrors.value) {
+      validateField('value', submitErrors.value);
+      hasError = true;
+    }
+    if (submitErrors.title) {
+      validateField('title', submitErrors.title);
+      hasError = true;
+    }
+    if (submitErrors.detail) {
+      validateField('detail', submitErrors.detail);
+      hasError = true;
+    }
+    if (submitErrors.recommend) {
+      validateField('recommend', submitErrors.recommend);
+      hasError = true;
+    }
+    if (submitErrors.agreeToTerms) {
+      validateField('agreeToTerms', submitErrors.agreeToTerms);
+      hasError = true;
+    }
+    if (hasError) {
+      scrollToFirstError();
+      return;
     }
 
-    return(
-        <>
-        <FormLayout onSubmit={handleSubmit} isEdit={editIndex==null}>
-            <ProductDetails 
-            formData={formData} 
-            setFormData={setFormData}
-             errors={errors}
-             validateField={validateField}
-             clearError={clearError} 
-             />
-            <Ratings 
-            formData={formData}
-             setFormData={setFormData}
-             errors={errors}
-        
-             clearError={clearError}
-             />
-            <ReviewDetails 
-            formData={formData}
-             setFormData={setFormData}
-             errors={errors}
-             validateField={validateField}
-             clearError={clearError}
-              />
-            <Tags formData={formData} setFormData={setFormData} />
-            <Recommend 
-            formData={formData}
-             setFormData={setFormData}
-             errors={errors}
-             clearError={clearError} />
-            <Terms
-            formData={formData}
-             setFormData={setFormData}
-             errors={errors}
-             validateField={validateField}
-             clearError={clearError}/>
-        </FormLayout>
-        {showModal && (
-            <Modal
-            message={modalMessage}
-            onClose={()=>setShowModal(false)}
-            />
+    if (editIndex === null) {
+      setRecords([...records, formData]);
+      setModalMessage('Form submitted successfully');
+    } else {
+      const updated = [...records];
+      updated[editIndex] = formData;
+      setRecords(updated);
+      setEditIndex(null);
+      setModalMessage('Form updated successfully');
+    }
+    setShowModal(true);
+    setFormData(initialFormData);
+    scrollToTop();
+  };
 
-        )}
-        </>
-    )
+  return (
+    <>
+      <FormLayout onSubmit={handleSubmit} isEdit={editIndex == null}>
+        <ProductDetails
+          formData={formData}
+          setFormData={setFormData}
+          errors={errors}
+          validateField={validateField}
+          clearError={clearError}
+        />
+        <Ratings
+          formData={formData}
+          setFormData={setFormData}
+          errors={errors}
+          clearError={clearError}
+        />
+        <ReviewDetails
+          formData={formData}
+          setFormData={setFormData}
+          errors={errors}
+          validateField={validateField}
+          clearError={clearError}
+        />
+        <Tags formData={formData} setFormData={setFormData} />
+        <Recommend
+          formData={formData}
+          setFormData={setFormData}
+          errors={errors}
+          clearError={clearError}
+        />
+        <Terms
+          formData={formData}
+          setFormData={setFormData}
+          errors={errors}
+          validateField={validateField}
+          clearError={clearError}
+        />
+      </FormLayout>
+      {showModal && (
+        <Modal message={modalMessage} onClose={() => setShowModal(false)} />
+      )}
+    </>
+  );
 };
 export default Form;
