@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@mindfiredigital/eslint-plugin-hub": "^2.2.0",
+    "antd": "^6.2.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
