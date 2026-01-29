@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormTypes } from "../types/form.types";
 import Form from "../components/form/Form";
 import Table from "../components/table/Table";
 import Modal from "../components/common/Modal";
+import storage from "../services/storage.service";
 
 const initialFormData: typeof FormTypes.data={
         name:"",
@@ -26,12 +27,16 @@ const initialFormData: typeof FormTypes.data={
 };
 const ReviewPage=()=>{
     const [formData,setFormData]=useState(initialFormData);
-    const [records,setRecords]=useState<(typeof FormTypes.data)[]>([]);
+    const [records,setRecords]=useState<(typeof FormTypes.data)[]>(storage.get());
     const [editIndex,setEditIndex]=useState<number|null>(null);
 
     const [deleteIndex,setDeleteIndex]=useState<number|null>(null);
     const[modalMessage,setModalMessage]=useState("");
     const [showModal,setShowModal]=useState(false);
+
+    useEffect(()=>{
+        storage.set(records);
+    },[records]);
 
 
     const handleEdit=(index:number)=>{
