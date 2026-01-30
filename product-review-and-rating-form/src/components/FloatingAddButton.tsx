@@ -1,3 +1,4 @@
+//for adding data to the table
 import { FloatButton } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 
