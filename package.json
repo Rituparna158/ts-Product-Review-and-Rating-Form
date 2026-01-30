@@ -42,7 +42,7 @@
   "overrides": {
     "vite": "npm:rolldown-vite@7.2.5"
   },
-"lint-staged": {
+  "lint-staged": {
     "**/*.{js,ts}": [
       "prettier --write",
       "eslint ."
