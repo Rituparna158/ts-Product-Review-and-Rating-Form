@@ -81,7 +81,7 @@ const ProductDetails = ({
         placeholder="Enter Product SKU"
       />
       <div className="error">{errors.sku}</div>
-      <br/>
+      <br />
 
       <label>
         Purchase Date

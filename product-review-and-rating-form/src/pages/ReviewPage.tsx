@@ -1,9 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FormTypes } from '../types/form.types';
-import Form from '../components/form/Form';
-import Table from '../components/table/Table';
-import Modal from '../components/common/Modal';
-import storage from '../services/storage.service';
+import { useReviewStore } from '../store/review.store';
+//import Form from '../components/form/Form';
+//import Table from '../components/table/Table';
+//import Modal from '../components/common/Modal';
+//import storage from '../services/storage.service';
+import { FloatButton, Modal } from 'antd';
+import ReviewForModal from '../components/form/ReviewForModal';
+import { PlusOutlined } from '@ant-design/icons';
+import ReviewTable from '../components/table/ReviewTable';
+//import { Content } from 'antd/es/layout/layout';
 
 const initialFormData: typeof FormTypes.data = {
   name: '',
@@ -26,62 +32,64 @@ const initialFormData: typeof FormTypes.data = {
   },
 };
 const ReviewPage = () => {
-  const [formData, setFormData] = useState(initialFormData);
-  const [records, setRecords] = useState<(typeof FormTypes.data)[]>(
-    storage.get()
-  );
-  const [editIndex, setEditIndex] = useState<number | null>(null);
+  const {
+    records,
+    addRecord,
+    updateRecord,
+    deleteRecord,
+    editIndex,
+    setEditIndex,
+  } = useReviewStore();
+  //const [formData, setFormData] = useState(initialFormData);
+  //const [records, setRecords] = useState<(typeof FormTypes.data)[]>(
+  //storage.get()
+  const [open, setOpen] = useState(false);
+  //const [deleteIndex, setDeleteIndex] = useState<number | null>(null);
+  //const [modalMessage, setModalMessage] = useState('');
+  //const [showModal, setShowModal] = useState(false);
 
-  const [deleteIndex, setDeleteIndex] = useState<number | null>(null);
-  const [modalMessage, setModalMessage] = useState('');
-  const [showModal, setShowModal] = useState(false);
-
-  useEffect(() => {
-    storage.set(records);
-  }, [records]);
-
+  const handleAdd = () => {
+    setEditIndex(null);
+    //setCurrentData(initialFormData);
+    setOpen(true);
+  };
   const handleEdit = (index: number) => {
     setEditIndex(index);
-    setFormData(records[index]);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    //setCurrentData(records[index]);
+    setOpen(true);
   };
   const handleDelete = (index: number) => {
-    //setRecords(records.filter((_,i)=>i!=index));
-    setDeleteIndex(index);
+    Modal.confirm({
+      title: 'Delete Review?',
+      content: 'Are you sure you want to delete this review?',
+      onOk: () => deleteRecord(index),
+    });
   };
-  const confirmDelete = () => {
-    if (deleteIndex === null) return;
-
-    const updated = records.filter((_, i) => i !== deleteIndex);
-    setRecords(updated);
-    setDeleteIndex(null);
-    setModalMessage('Record deleted successfully');
-    setShowModal(true);
+  const handleSubmit = (data: typeof FormTypes.data) => {
+    if (editIndex === null) {
+      addRecord(data);
+    } else {
+      updateRecord(editIndex, data);
+      setEditIndex(null);
+    }
+    setOpen(false);
   };
   return (
-    <div className="page-layout">
-      <Form
-        formData={formData}
-        setFormData={setFormData}
+    <>
+      <ReviewTable
         records={records}
-        setRecords={setRecords}
-        editIndex={editIndex}
-        setEditIndex={setEditIndex}
-        initialFormData={initialFormData}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
       />
-      <Table records={records} onEdit={handleEdit} onDelete={handleDelete} />
-      {deleteIndex !== null && (
-        <Modal
-          message="Are you sure you want to delete this record?"
-          showCancel
-          onClose={() => setDeleteIndex(null)}
-          onConfirm={confirmDelete}
-        />
-      )}
-      {showModal && (
-        <Modal message={modalMessage} onClose={() => setShowModal(false)} />
-      )}
-    </div>
+      <ReviewForModal
+        open={open}
+        onClose={() => setOpen(false)}
+        onSubmit={handleSubmit}
+        initialData={editIndex !== null ? records[editIndex] : initialFormData}
+        isEdit={editIndex !== null}
+      />
+      <FloatButton icon={<PlusOutlined />} type="primary" onClick={handleAdd} />
+    </>
   );
 };
 export default ReviewPage;

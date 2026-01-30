@@ -8,7 +8,9 @@ interface Props {
 const Table = ({ records, onEdit, onDelete }: Props) => {
   return (
     <div className="table-section">
-      <div className="table-heading"><h2>Submitted Reviews</h2></div>
+      <div className="table-heading">
+        <h2>Submitted Reviews</h2>
+      </div>
       <div className="table-container">
         <table id="recordsTable">
           <thead>

@@ -12,9 +12,13 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@ant-design/icons": "^6.1.0",
     "@mindfiredigital/eslint-plugin-hub": "^2.2.0",
+    "antd": "^6.2.2",
+    "dayjs": "^1.11.19",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "zustand": "^5.0.10"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.3.1",
@@ -37,5 +41,11 @@
   },
   "overrides": {
     "vite": "npm:rolldown-vite@7.2.5"
+  },
+  "lint-staged": {
+    "*.{js.jsx,ts,tsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ]
   }
 }
