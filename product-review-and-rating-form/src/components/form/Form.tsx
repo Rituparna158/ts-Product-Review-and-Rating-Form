@@ -12,7 +12,7 @@ import validationService from '../../services/validation.service';
 import useFormValidation from '../../hooks/useFormValidation';
 import Modal from '../common/Modal';
 import '../../styles/form.style.css';
-import '../../styles/table.style.css'
+import '../../styles/table.style.css';
 
 type Props = {
   formData: typeof FormTypes.data;

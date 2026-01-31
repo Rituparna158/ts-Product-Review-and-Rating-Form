@@ -189,8 +189,8 @@ input.submit-btn:hover {
     flex-direction: column;
     align-items: stretch;
   }
-  .form-wrapper{
-     width: 100%;
+  .form-wrapper {
+    width: 100%;
     max-width: 100%;
   }
   .table-section {

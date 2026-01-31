@@ -46,7 +46,7 @@ const ReviewPage = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
   const handleDelete = (index: number) => {
-    //setRecords(records.filter((_,i)=>i!=index));
+    setRecords(records.filter((_,i)=>i!=index));
     setDeleteIndex(index);
   };
   const confirmDelete = () => {
