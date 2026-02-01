@@ -1,24 +1,30 @@
 //import useTheme from './hooks/useTheme';
 //import './App.css';
-import { useState } from 'react';
-import { ConfigProvider, theme, Button } from 'antd';
-import ReviewPage from './pages/ReviewPage';
-const { darkAlgorithm, defaultAlgorithm } = theme;
+import { ConfigProvider, theme } from 'antd';
+import ReviewPage from './pages/review-page';
+import useThemeStore from './store/theme-store';
 
-function App() {
-  const [dark, setDark] = useState(false);
+function renderApp() {
+  const {dark} =useThemeStore();
   return (
     <ConfigProvider
       theme={{
-        algorithm: dark ? darkAlgorithm : defaultAlgorithm,
+        algorithm: dark ? theme.darkAlgorithm : theme.defaultAlgorithm,
+  
       }}
     >
-      <Button onClick={() => setDark(!dark)} style={{ margin: 16 }}>
-        Toggle Theme
-      </Button>
-      <ReviewPage />
+      <div 
+      style={{
+        minHeight:"100vh",
+        backgroundColor: dark? "#0f172a":"#f5f5f5"
+      }}
+      >
+        <ReviewPage />
+      </div>
+    
+      
     </ConfigProvider>
   );
 }
 
-export default App;
+export default renderApp;

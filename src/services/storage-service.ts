@@ -1,10 +1,10 @@
-import { FormTypes } from '../types/form.types';
+import type { ReviewType } from '../types/review-type';
 
 const storage = {
-  set(records: (typeof FormTypes.data)[]) {
+  set(records: ReviewType[]): void {
     localStorage.setItem('product_reviews', JSON.stringify(records));
   },
-  get(): (typeof FormTypes.data)[] {
+  get(): ReviewType[] {
     const data = localStorage.getItem('product_reviews');
     return data ? JSON.parse(data) : [];
   },
